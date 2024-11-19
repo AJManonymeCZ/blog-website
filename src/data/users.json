@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "Alice",
+    "email": "alice@example.com",
+    "password": "password123",
+    "gender": "Male"
+  },
+  {
+    "id": 2,
+    "name": "Bob",
+    "email": "bob@example.com",
+    "password": "password123",
+    "gender": "Female"
+  },
+  {
+    "id": 3,
+    "name": "Charlie",
+    "email": "charlie@example.com",
+    "password": "password123",
+    "gender": "Female"
+  },
+  {
+    "id": 4,
+    "name": "Diana",
+    "email": "diana@example.com",
+    "password": "password123",
+    "gender": "Female"
+  },
+  {
+    "id": 5,
+    "name": "Edward",
+    "email": "edward@example.com",
+    "password": "password123",
+    "gender": "Other"
+  },
+  {
+    "id": 6,
+    "name": "Fiona",
+    "email": "fiona@example.com",
+    "password": "password123",
+    "gender": "Other"
+  },
+  {
+    "id": 7,
+    "name": "George",
+    "email": "george@example.com",
+    "password": "password123",
+    "gender": "Male"
+  },
+  {
+    "id": 8,
+    "name": "Hannah",
+    "email": "hannah@example.com",
+    "password": "password123",
+    "gender": "Female"
+  },
+  {
+    "id": 9,
+    "name": "Ian",
+    "email": "ian@example.com",
+    "password": "password123",
+    "gender": "Other"
+  },
+  {
+    "id": 10,
+    "name": "Jane",
+    "email": "jane@example.com",
+    "password": "password123",
+    "gender": "Female"
+  }
+]
