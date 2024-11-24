@@ -9,9 +9,15 @@ import ErrorPage from "./pages/error/Error";
 import BlogsLoader from "./pages/blogs/BlogsLoader";
 import BlogLoader from "./pages/blog/BlogLoader";
 import Blogs from "./pages/blogs/Blogs";
+import DashboardBlogs from "./pages/dashboard/Blogs";
 import Root from "./pages/root/Root";
 import LoginForm from "./pages/login/LoginForm";
 import Blog from "./pages/blog/Blog";
+import {Provider} from "react-redux";
+import {store} from "./redux/Store";
+import DashboardRoot from "./pages/root/DashboardRoot";
+import Dashboard from "./pages/dashboard/Dashboard";
+import Users from "./pages/dashboard/Users";
 
 const router = createBrowserRouter([
     {
@@ -39,12 +45,33 @@ const router = createBrowserRouter([
             },
         ],
     },
+    {
+        path: "/dashboard",
+        element: <DashboardRoot />,
+        errorElement: <ErrorPage />,
+        children: [
+            {
+                path: "/dashboard",
+                element: <Dashboard />
+            },
+            {
+                path: "/dashboard/users",
+                element: <Users />
+            },
+            {
+                path: "/dashboard/blogs",
+                element: <DashboardBlogs />
+            },
+        ],
+    }
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <RouterProvider router={router} />
+        <Provider store={store} >
+            <RouterProvider router={router} />
+        </Provider>
     </React.StrictMode>
 );
 

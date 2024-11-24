@@ -1,27 +1,29 @@
 import React, {useEffect, useState} from 'react';
 import './LoginForm.css';
 import users from '../../data/users.json';
+import {useDispatch, useSelector} from "react-redux";
+import {login} from "../../redux/auth/Action";
+import {useNavigate} from "react-router";
 
 const LoginForm = () => {
+    const {auth} = useSelector(store => store);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
 
     const handleLogin = () => {
-        const user = users.find(u => u.email === email && u.password === password);
-
-        if (user) {
-            //make auth store with redux and dispatch login action after that redirect to dashboard
-        } else {
-            setError("Wrong email or password");
-        }
+        dispatch(login({email: email, password: password}));
     }
 
     useEffect(() => {
-        setTimeout(() => {
-            setError(null);
-        }, 3000);
-    }, [error]);
+        if (auth.user) {
+            navigate('/dashboard');
+        } else {
+            setError(auth.error);
+        }
+    }, [auth]);
 
     return (
         <div>

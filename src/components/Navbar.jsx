@@ -1,8 +1,10 @@
 import React from 'react';
 import { Search } from "react-bootstrap-icons";
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 const Navbar = () => {
+    const {auth} = useSelector(store => store);
     const resetSelectedLink = () => {
         document.querySelectorAll("#navLinks a").forEach(link => {
            link.classList.remove("active");
@@ -22,7 +24,12 @@ const Navbar = () => {
                     <Link  className="link-secondary" to="#" aria-label="Search">
                         <Search className="mx-3" size={20} />
                     </Link>
-                    <Link onClick={resetSelectedLink} className="btn btn-sm btn-outline-secondary" to="signin">Sign up</Link>
+                    {auth.user == null
+                        ?
+                            <Link onClick={resetSelectedLink} className="btn btn-sm btn-outline-secondary" to="signin">Sign up</Link>
+                        :
+                            <Link onClick={resetSelectedLink} className="btn btn-sm btn-outline-primary" to="dashboard">Dashboard</Link>
+                    }
                 </div>
             </div>
         </header>
