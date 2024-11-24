@@ -1,12 +1,8 @@
 import React from 'react';
-import Navbar from "../../components/Navbar";
-import {categories} from "../../data/categories";
-import CategoryItem from "../../components/CategoryItem";
 import posts from "../../data/posts.json";
 import BlogPostCard from "../../components/BlogPostCard";
 import BlogPost from "../../components/BlogPost";
 import RecentPostsSection from "../../components/RecentPostsSection";
-import {Outlet} from "react-router";
 const Home = () => {
     const getRandomBlog = () => {
       return posts[Math.floor(Math.random() * 20)];
@@ -60,10 +56,6 @@ const Home = () => {
                 </div>
 
             </main>
-
-            <footer className="py-5 text-center text-body-secondary bg-body-tertiary">
-                <p>© Company Name. All rights reserved.</p>
-            </footer>
         </div>
     );
 };

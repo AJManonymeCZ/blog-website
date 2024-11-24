@@ -7,9 +7,11 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Home from "./pages/home/Home";
 import ErrorPage from "./pages/error/Error";
 import BlogsLoader from "./pages/blogs/BlogsLoader";
+import BlogLoader from "./pages/blog/BlogLoader";
 import Blogs from "./pages/blogs/Blogs";
 import Root from "./pages/root/Root";
 import LoginForm from "./pages/login/LoginForm";
+import Blog from "./pages/blog/Blog";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +27,11 @@ const router = createBrowserRouter([
                 path: "blogs/:category",
                 element: <Blogs />,
                 loader: BlogsLoader
+            },
+            {
+                path: "blog/:id",
+                element: <Blog />,
+                loader: BlogLoader
             },
             {
                 path: "signin",
