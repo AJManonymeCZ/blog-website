@@ -1,7 +1,6 @@
 import {LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT} from "./ActionType";
-import users from "../../data/users.json";
 
-export const login = (userData) => {
+export const login = (users, userData) => {
     return async (dispatch) => {
         dispatch({type: LOGIN_REQUEST})
 

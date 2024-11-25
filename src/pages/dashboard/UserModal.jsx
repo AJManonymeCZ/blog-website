@@ -1,12 +1,21 @@
 import React, {useState} from 'react';
 import {Button, Modal} from "react-bootstrap";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {updateUser} from "../../redux/users/Action";
 
 const UserModal = ({show, handleClose}) => {
     const {auth} = useSelector(store => store);
-    const [name, setName] = useState(auth.user.name);
-    const [email, setEmail] = useState(auth.user.email);
+    const {users} = useSelector(store => store);
+    const dispatch = useDispatch();
+    const [name, setName] = useState(auth.user?.name);
+    const [email, setEmail] = useState(auth.user?.email);
+    const [password, setPassword] = useState(null);
+    const [retypePassword, setRetypePassword] = useState(null);
 
+    const handleSaveChanges = () => {
+        dispatch(updateUser(users.users,{ id:auth.user.id, name: name, email: email, password: password, retypePassword: retypePassword }));
+        handleClose();
+    }
 
     return (
         <>
@@ -26,11 +35,11 @@ const UserModal = ({show, handleClose}) => {
                         </div>
                         <div className="col-12">
                             <label htmlFor="password" className="form-label">Password</label>
-                            <input type="password" className="form-control" id="password" />
+                            <input type="password" className="form-control" id="password" onChange={e => setPassword(e.target.value)} />
                         </div>
                         <div className="col-12">
                             <label htmlFor="password" className="form-label">Retype password</label>
-                            <input type="password" className="form-control" id="retype-password" />
+                            <input type="password" className="form-control" id="retype-password" onChange={e => setRetypePassword(e.target.value)} />
                         </div>
                     </form>
                 </Modal.Body>
@@ -38,7 +47,7 @@ const UserModal = ({show, handleClose}) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={handleSaveChanges}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

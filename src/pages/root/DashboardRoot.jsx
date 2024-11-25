@@ -14,12 +14,13 @@ import {Link} from "react-router-dom";
 import {logout} from "../../redux/auth/Action";
 import {Button, Modal} from "react-bootstrap";
 import UserModal from "../dashboard/UserModal";
+import "./dashboard.css"
 
 const DashboardRoot = () => {
     const {auth} = useSelector(store => store);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const heightOfSidebar = window.innerHeight;
+    const heightOfSidebar = window.innerHeight - 34;
 
 
 
@@ -95,10 +96,10 @@ const DashboardRoot = () => {
                                         </Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link onClick={(e) => handleLogout(e)} className="nav-link d-flex align-items-center gap-2" to="#">
+                                        <p style={{cursor: "pointer"}} onClick={(e) => handleLogout(e)} className="nav-link d-flex align-items-center gap-2" to="/">
                                             <DoorClosed />
                                             Sign out
-                                        </Link>
+                                        </p>
                                     </li>
                                 </ul>
                             </div>

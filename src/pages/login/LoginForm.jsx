@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './LoginForm.css';
-import users from '../../data/users.json';
 import {useDispatch, useSelector} from "react-redux";
 import {login} from "../../redux/auth/Action";
 import {useNavigate} from "react-router";
 
 const LoginForm = () => {
+    const {users} = useSelector(store => store);
     const {auth} = useSelector(store => store);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const LoginForm = () => {
     const [error, setError] = useState(null);
 
     const handleLogin = () => {
-        dispatch(login({email: email, password: password}));
+        dispatch(login(users.users,{email: email, password: password}));
     }
 
     useEffect(() => {
