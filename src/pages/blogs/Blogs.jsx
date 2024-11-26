@@ -1,9 +1,13 @@
 import React from 'react';
 import {useLoaderData} from "react-router";
 import BlogPostCard from "../../components/BlogPostCard";
+import {useSelector} from "react-redux";
+import posts from "../../data/posts.json";
 
 const Blogs = () => {
-    const posts = useLoaderData();
+    const category = useLoaderData();
+    const {blogs} = useSelector(store => store);
+    const posts = blogs.blogs.filter(p => p.category === category);
     return (
         <main className="container" style={{maxWidth: '900px'}}>
             {posts.length !== 0

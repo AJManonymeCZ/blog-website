@@ -45,7 +45,6 @@ const DashboardRoot = () => {
             navigate("/signin");
         }
     }, [auth]);
-
     return (
         <div>
             <header className="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
@@ -63,29 +62,26 @@ const DashboardRoot = () => {
                             <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                                 <ul id="ulLinks" className="nav flex-column">
                                     <li className="nav-item">
-                                        <Link onClick={(e) => setActive(e)} className="nav-link d-flex align-items-center gap-2 active" aria-current="page" to="/dashboard">
-                                            <HouseFill />
+                                        <Link onClick={(e) => setActive(e)}
+                                              className="nav-link d-flex align-items-center gap-2 active"
+                                              aria-current="page" to="/dashboard">
+                                            <HouseFill/>
                                             Dashboard
                                         </Link>
                                     </li>
-                                    <li className="nav-item">
-                                        <Link onClick={(e) => setActive(e)} className="nav-link d-flex align-items-center gap-2" aria-current="page" to="/dashboard/users">
-                                            <PeopleFill />
-                                            Users
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link onClick={(e) => setActive(e)} className="nav-link d-flex align-items-center gap-2" aria-current="page" to="/dashboard/blogs">
-                                            <Postcard />
-                                            Blogs
-                                        </Link>
-                                    </li>
+                                    {
+                                        auth.user?.role === "admin"
+                                            ?
+                                            <DashboardAdminLinks setActive={setActive}/>
+                                            :
+                                            <DashboardEditorLinks setActive={setActive}/>
+                                    }
                                 </ul>
-                                <hr className="my-3" />
+                                <hr className="my-3"/>
                                 <ul className="nav flex-column mb-auto">
                                     <li className="nav-item">
                                         <Link className="nav-link d-flex align-items-center gap-2" to="/">
-                                            <ArrowReturnLeft />
+                                        <ArrowReturnLeft />
                                             MY BLOGS
                                         </Link>
                                     </li>
@@ -116,3 +112,41 @@ const DashboardRoot = () => {
 };
 
 export default DashboardRoot;
+
+
+const DashboardAdminLinks = ({setActive}) => {
+    return (
+        <>
+            <li className="nav-item">
+                <Link onClick={(e) => setActive(e)} className="nav-link d-flex align-items-center gap-2"
+                      aria-current="page"
+                      to="/dashboard/users">
+                    <PeopleFill/>
+                    Users
+                </Link>
+            </li>
+            <li className="nav-item">
+                <Link onClick={(e) => setActive(e)} className="nav-link d-flex align-items-center gap-2"
+                      aria-current="page"
+                      to="/dashboard/blogs">
+                    <Postcard/>
+                    Blogs
+                </Link>
+            </li>
+        </>
+    );
+};
+
+const DashboardEditorLinks = ({setActive}) => {
+    return (<>
+        <li className="nav-item">
+            <Link onClick={(e) => setActive(e)} className="nav-link d-flex align-items-center gap-2 active"
+                  aria-current="page" to="/dashboard/my-blogs">
+                <HouseFill/>
+                My Blogs
+            </Link>
+        </li>
+    </>);
+}
+
+

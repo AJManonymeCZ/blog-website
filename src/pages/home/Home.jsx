@@ -3,9 +3,11 @@ import posts from "../../data/posts.json";
 import BlogPostCard from "../../components/BlogPostCard";
 import BlogPost from "../../components/BlogPost";
 import RecentPostsSection from "../../components/RecentPostsSection";
+import {useSelector} from "react-redux";
 const Home = () => {
+    const {blogs} = useSelector(store => store);
     const getRandomBlog = () => {
-      return posts[Math.floor(Math.random() * 20)];
+      return blogs.blogs[Math.floor(Math.random() * blogs.blogs.length)];
     };
 
     return (

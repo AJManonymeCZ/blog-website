@@ -1,9 +1,12 @@
 import React from 'react';
 import {useLoaderData} from "react-router";
 import users from "../../data/users.json";
+import {useSelector} from "react-redux";
 
 const Blog = () => {
-    const post = useLoaderData();
+    const id = useLoaderData();
+    const {blogs} = useSelector((store) => store);
+    const post = blogs.blogs.find(post => post.id === parseInt(id));
     return (
         <div className="container-fluid" style={{maxWidth: '900px'}}>
             { post ?

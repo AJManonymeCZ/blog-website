@@ -62,6 +62,10 @@ const router = createBrowserRouter([
                 path: "/dashboard/blogs",
                 element: <DashboardBlogs />
             },
+            {
+                path: "/dashboard/my-blogs",
+                element: <DashboardBlogs />
+            },
         ],
     }
 ])
