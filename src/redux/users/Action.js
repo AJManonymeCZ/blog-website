@@ -10,13 +10,17 @@ export const updateUser = (users, user) => {
     return async (dispatch) => {
         dispatch({type: UPDATE_USER_REQUEST});
         let error = false;
+        console.log("Updating user", user)
         users.forEach(u => {
            if (u.id === user.id) {
                if (user.name) {
-                   u.name = user.name
+                   u.name = user.name;
                }
                if (user.email) {
-                   u.email = user.email
+                   u.email = user.email;
+               }
+               if (user.role) {
+                   u.role = user.role;
                }
                if (user.password && user.password === user.retypePassword) {
                    console.log("Changing password");

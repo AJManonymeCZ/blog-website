@@ -9,7 +9,7 @@ const BlogPostCard = ({post, col = 6}) => {
                 <div className="col p-4 d-flex flex-column position-static">
                     <strong className="d-inline-block mb-2 text-primary-emphasis">{post.category ?? ''}</strong>
                     <h3 className="mb-0">{post.title}</h3>
-                    <div className="mb-1 text-body-secondary">{post.date}</div>qq
+                    <div className="mb-1 text-body-secondary">{post.date}</div>
                     <p className="card-text mb-auto">{post.shortText}</p>
                     <Link to={"/blog/" + post.id} className="icon-link gap-1 icon-link-hover stretched-link">
                         Continue reading

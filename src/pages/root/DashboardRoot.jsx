@@ -5,7 +5,7 @@ import {
     DoorClosed,
     GearWideConnected,
     HouseFill,
-    PeopleFill, Postcard,
+    PeopleFill, Postcard, PostcardHeart,
     Search
 } from "react-bootstrap-icons";
 import {useDispatch, useSelector} from "react-redux";
@@ -86,10 +86,10 @@ const DashboardRoot = () => {
                                         </Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link onClick={handleShow} className="nav-link d-flex align-items-center gap-2" to="">
+                                        <span style={{cursor: "pointer"}} onClick={handleShow} className="nav-link d-flex align-items-center gap-2" to="">
                                             <GearWideConnected />
                                             Settings
-                                        </Link>
+                                        </span>
                                     </li>
                                     <li className="nav-item">
                                         <p style={{cursor: "pointer"}} onClick={(e) => handleLogout(e)} className="nav-link d-flex align-items-center gap-2" to="/">
@@ -141,8 +141,8 @@ const DashboardEditorLinks = ({setActive}) => {
     return (<>
         <li className="nav-item">
             <Link onClick={(e) => setActive(e)} className="nav-link d-flex align-items-center gap-2 active"
-                  aria-current="page" to="/dashboard/my-blogs">
-                <HouseFill/>
+                  aria-current="page" to="/dashboard/blogs">
+                <PostcardHeart/>
                 My Blogs
             </Link>
         </li>

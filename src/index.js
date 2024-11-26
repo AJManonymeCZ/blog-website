@@ -13,11 +13,12 @@ import DashboardBlogs from "./pages/dashboard/Blogs";
 import Root from "./pages/root/Root";
 import LoginForm from "./pages/login/LoginForm";
 import Blog from "./pages/blog/Blog";
-import {Provider} from "react-redux";
+import {Provider, useSelector} from "react-redux";
 import {store} from "./redux/Store";
 import DashboardRoot from "./pages/root/DashboardRoot";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Users from "./pages/dashboard/Users";
+import UnAuthorized from "./components/UnAuthorized";
 
 const router = createBrowserRouter([
     {
@@ -52,19 +53,15 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/dashboard",
-                element: <Dashboard />
+                element: <UnAuthorized><Dashboard /></UnAuthorized> ,
             },
             {
                 path: "/dashboard/users",
-                element: <Users />
+                element:<UnAuthorized ><Users /></UnAuthorized>,
             },
             {
                 path: "/dashboard/blogs",
-                element: <DashboardBlogs />
-            },
-            {
-                path: "/dashboard/my-blogs",
-                element: <DashboardBlogs />
+                element: <UnAuthorized><DashboardBlogs /></UnAuthorized>,
             },
         ],
     }

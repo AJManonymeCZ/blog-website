@@ -1,13 +1,40 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {deleteBlog} from "../../redux/blogs/Action";
+import UpdateBlogsModal from "./UpdateBlogsModal";
 
 const Blogs = () => {
     const {blogs} = useSelector((state) => state.blogs);
+    const {users} = useSelector((state) => state.users);
+    const {auth} = useSelector(store => store);
     const dispatch = useDispatch();
+
+    const [id, setId] = useState(null);
+    const [show, setShow] = useState(false);
+    const [allOrMyBlogs, setAllOrMyBlogs] = useState([]);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     const handleDelete = (id) => {
         dispatch(deleteBlog(blogs, id));
     };
+
+    const findAuthorById = (id) =>{
+        return users.find(u => u.id === id)?.name ?? "Unknown";
+    }
+
+    const handleUpdate = (id) => {
+        setId(id);
+        handleShow();
+    };
+
+    useEffect(() => {
+        if (auth.user.role !== "admin") {
+            setAllOrMyBlogs(blogs.filter(b => b.authorId === auth.user.id));
+        } else {
+            setAllOrMyBlogs(blogs);
+        }
+    }, [auth, blogs]);
 
     return (
         <>
@@ -28,18 +55,18 @@ const Blogs = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {blogs.map((b, i) =>
+                {allOrMyBlogs.map((b, i) =>
                     <tr>
-                        <td>{i}</td>
+                        <td>{i + 1}</td>
                         <td>
                             <img src={b.image} alt="image" style={{ height: "60px", width: "60px", objectFit: "cover" }} />
                         </td>
                         <td>{b.title}</td>
                         <td>{b.date}</td>
                         <td>{b.category}</td>
-                        <td>{b.authorId}</td>
+                        <td>{findAuthorById(b.authorId)}</td>
                         <td>
-                            <button type="button" className="btn btn-warning btn-sm">Update</button>
+                            <button onClick={() => handleUpdate(b.id)} type="button" className="btn btn-warning btn-sm">Update</button>
                             <button onClick={() => handleDelete(b.id)} type="button"
                                     className="mx-3 btn btn-danger btn-sm">Delete
                             </button>
@@ -48,6 +75,7 @@ const Blogs = () => {
                 )}
                 </tbody>
             </table>
+            <UpdateBlogsModal show={show} handleClose={handleClose} id={id} />
         </>
     );
 };

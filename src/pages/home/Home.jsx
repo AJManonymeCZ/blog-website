@@ -4,6 +4,7 @@ import BlogPostCard from "../../components/BlogPostCard";
 import BlogPost from "../../components/BlogPost";
 import RecentPostsSection from "../../components/RecentPostsSection";
 import {useSelector} from "react-redux";
+import {Link} from "react-router-dom";
 const Home = () => {
     const {blogs} = useSelector(store => store);
     const getRandomBlog = () => {
@@ -15,9 +16,9 @@ const Home = () => {
             <main className="container">
                 <div className="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
                     <div className="col-lg-6 px-0">
-                        <h1 className="display-4 fst-italic">{posts[13].title}</h1>
-                        <p className="lead my-3">{posts[13].shortText}</p>
-                        <p className="lead mb-0"><a href="#" className="text-body-emphasis fw-bold">Continue reading...</a></p>
+                        <h1 className="display-4 fst-italic">{blogs.blogs[12].title}</h1>
+                        <p className="lead my-3">{blogs.blogs[12].shortText}</p>
+                        <p className="lead mb-0"><Link to={"/blog/" + 13} className="text-body-emphasis fw-bold">Continue reading...</Link></p>
                     </div>
                 </div>
 
