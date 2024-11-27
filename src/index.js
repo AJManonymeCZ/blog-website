@@ -19,6 +19,8 @@ import DashboardRoot from "./pages/root/DashboardRoot";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Users from "./pages/dashboard/Users";
 import UnAuthorized from "./components/UnAuthorized";
+import Search from "./pages/search/Serach";
+import SearchLoader from "./pages/search/SearchLoader";
 
 const router = createBrowserRouter([
     {
@@ -39,6 +41,11 @@ const router = createBrowserRouter([
                 path: "blog/:id",
                 element: <Blog />,
                 loader: BlogLoader
+            },
+            {
+                path: "search/:search",
+                element: <Search />,
+                loader: SearchLoader
             },
             {
                 path: "signin",

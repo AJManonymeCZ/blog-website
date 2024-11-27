@@ -1,10 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Search } from "react-bootstrap-icons";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
+import {useNavigate} from "react-router";
 
 const Navbar = () => {
     const {auth} = useSelector(store => store);
+    const [search, setSearch] = useState("");
+    const navigate = useNavigate();
+
+    const handleSearch = () => {
+        if (search.trim().length > 0) {
+            navigate("/search/" + search);
+        } else {
+            navigate("/");
+        }
+    };
     const resetSelectedLink = () => {
         document.querySelectorAll("#navLinks a").forEach(link => {
            link.classList.remove("active");
@@ -21,9 +32,10 @@ const Navbar = () => {
                     <Link onClick={resetSelectedLink} className="blog-header-logo text-body-emphasis text-decoration-none" to={"/"}>MYBLOG</Link>
                 </div>
                 <div className="col-4 d-flex justify-content-end align-items-center">
-                    <Link  className="link-secondary" to="#" aria-label="Search">
-                        <Search className="mx-3" size={20} />
-                    </Link>
+                    <form className="d-flex mx-2" role="search">
+                        <input style={{height: "31px"}} className="form-control me-2" type="search" placeholder="Search" aria-label="Search" onChange={e => setSearch(e.target.value)} />
+                        <button onClick={handleSearch} className="btn btn-sm btn-outline-success" type="button">Search</button>
+                    </form>
                     {auth.user == null
                         ?
                             <Link onClick={resetSelectedLink} className="btn btn-sm btn-outline-secondary" to="signin">Sign up</Link>
