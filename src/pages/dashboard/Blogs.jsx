@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {deleteBlog} from "../../redux/blogs/Action";
 import UpdateBlogsModal from "./UpdateBlogsModal";
+import {Plus} from "react-bootstrap-icons";
 
 const Blogs = () => {
     const {blogs} = useSelector((state) => state.blogs);
@@ -28,6 +29,11 @@ const Blogs = () => {
         handleShow();
     };
 
+    const handleCreate = () => {
+      setId(null);
+      handleShow();
+    };
+
     useEffect(() => {
         if (auth.user.role !== "admin") {
             setAllOrMyBlogs(blogs.filter(b => b.authorId === auth.user.id));
@@ -41,6 +47,7 @@ const Blogs = () => {
             <div
                 className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">Blogs</h1>
+                <button onClick={() => handleCreate()} className="btn btn-primary"><Plus width="16" height="16" />Add Blog</button>
             </div>
             <table className="table table-striped">
                 <thead>

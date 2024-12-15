@@ -3,28 +3,55 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router";
 import {Button, Modal} from "react-bootstrap";
 import {updateUser} from "../../redux/users/Action";
-import {updateBLog} from "../../redux/blogs/Action";
+import {addBlog, updateBLog} from "../../redux/blogs/Action";
+
+const blogInitialState = {
+    id: null,
+    title: "",
+    date: "",
+    shortText: "",
+    longText: "",
+    category: "Technology",
+    image: "",
+    authorId: null
+}
 
 const UpdateBlogsModal = ({show, handleClose, id}) => {
     const categories = ["Technology", "Culture","Science", "Politics", "Health","Style", "Business", "Opinion", "Lifestyle"];
     const {blogs} = useSelector(store => store.blogs);
+    const {auth} = useSelector(store => store);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [blog, setBlog] = useState(null);
+    const [blog, setBlog] = useState(blogInitialState);
     const [message, setMessage] = useState("");
+    const [updating, setUpdating] = useState(true);
 
     const handleSaveChanges = () => {
-        dispatch(updateBLog(blogs, blog));
+        if (updating) {
+            dispatch(updateBLog(blogs, blog));
+        } else {
+            blog.id = blogs.length + 1;
+            blog.authorId = auth.user.id;
+            blog.date = new Date().toISOString().split('T')[0];
+            dispatch(addBlog(blogs, blog));
+        }
+
         handleClose();
         navigate("/dashboard/blogs");
     };
 
     useEffect(() => {
-        const findBlog = blogs.find(b => b.id === parseInt(id));
-        if (findBlog) {
-            setBlog(findBlog);
+        if (id == null) {
+            setBlog(blogInitialState);
+            setUpdating(false);
         } else {
-            setMessage("No blog found with id:" + id);
+            setUpdating(true);
+            const findBlog = blogs.find(b => b.id === parseInt(id));
+            if (findBlog) {
+                setBlog(findBlog);
+            } else {
+                setMessage("No blog found with id:" + id);
+            }
         }
     }, [id, blogs]);
 
@@ -32,7 +59,7 @@ const UpdateBlogsModal = ({show, handleClose, id}) => {
         <>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Update user</Modal.Title>
+                    <Modal.Title>{updating ? "Update Blog" : "Add Blog"}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {
@@ -52,11 +79,11 @@ const UpdateBlogsModal = ({show, handleClose, id}) => {
                                 </select>
                                 <div className="mb-3">
                                     <label for="shortText" className="form-label">Short Text</label>
-                                    <textarea className="form-control" id="shortText" rows="2" onChange={e => setBlog({...blog, shortText: e.target.value})} >{blog.shortText}</textarea>
+                                    <textarea className="form-control" id="shortText" value={blog.shortText} rows="2" onChange={e => setBlog({...blog, shortText: e.target.value})} ></textarea>
                                 </div>
-                                <div class="mb-3">
+                                <div className="mb-3">
                                     <label for="longText" className="form-label">Long Text</label>
-                                    <textarea className="form-control" id="longText" rows="6" onChange={e => setBlog({...blog, longText: e.target.value})}>{blog.longText}</textarea>
+                                    <textarea className="form-control" id="longText" value={blog.longText} rows="6" onChange={e => setBlog({...blog, longText: e.target.value})}></textarea>
                                 </div>
                             </form>
                             :

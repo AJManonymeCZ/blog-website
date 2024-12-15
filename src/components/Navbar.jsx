@@ -38,7 +38,7 @@ const Navbar = () => {
                     </form>
                     {auth.user == null
                         ?
-                            <Link onClick={resetSelectedLink} className="btn btn-sm btn-outline-secondary" to="signin">Sign up</Link>
+                            <Link onClick={resetSelectedLink} className="btn btn-sm btn-outline-secondary" to="signin">Sign in</Link>
                         :
                             <Link onClick={resetSelectedLink} className="btn btn-sm btn-outline-primary" to="dashboard">Dashboard</Link>
                     }

@@ -1,4 +1,6 @@
 import {
+    ADD_BLOG_FAILURE,
+    ADD_BLOG_REQUEST, ADD_BLOG_SUCCESS,
     DELETE_BLOG_FAILURE,
     DELETE_BLOG_REQUEST,
     DELETE_BLOG_SUCCESS,
@@ -19,7 +21,7 @@ export const deleteBlog = (blogs, id) => {
     };
 }
 
-export const updateBLog = (blogs, blog) =>{
+export const updateBLog = (blogs, blog) => {
     return async (dispatch) => {
         dispatch({type: UPDATE_BLOG_REQUEST});
         let error = false;
@@ -49,4 +51,15 @@ export const updateBLog = (blogs, blog) =>{
         if (!error)
             dispatch({type: UPDATE_BLOG_SUCCESS, payload: blogs});
     };
+}
+
+export const addBlog = (blogs, addedBlog) => {
+    return async (dispatch) => {
+        dispatch({type: ADD_BLOG_REQUEST});
+        if(blogs.push(addedBlog)) {
+            dispatch({type: ADD_BLOG_SUCCESS, payload: blogs});
+        } else {
+            dispatch({type: ADD_BLOG_FAILURE, error: "Error when adding blog"});
+        }
+    }
 }
