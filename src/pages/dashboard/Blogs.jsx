@@ -35,7 +35,7 @@ const Blogs = () => {
     };
 
     useEffect(() => {
-        if (auth.user.role !== "admin") {
+        if (auth.user.previewRole !== "admin") {
             setAllOrMyBlogs(blogs.filter(b => b.authorId === auth.user.id));
         } else {
             setAllOrMyBlogs(blogs);
@@ -66,7 +66,7 @@ const Blogs = () => {
                     <tr>
                         <td>{i + 1}</td>
                         <td>
-                            <img src={b.image} alt="image" style={{ height: "60px", width: "60px", objectFit: "cover" }} />
+                            <img src={b.image} alt={"img" + i} style={{ height: "60px", width: "60px", objectFit: "cover" }} />
                         </td>
                         <td>{b.title}</td>
                         <td>{b.date}</td>

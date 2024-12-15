@@ -14,6 +14,7 @@ const UsersUpdateModal = ({show, handleClose, id}) => {
 
     const handleSaveChanges = () => {
         dispatch(updateUser(users, user));
+        setUser(user);
         handleClose();
         navigate("/dashboard/users");
     };

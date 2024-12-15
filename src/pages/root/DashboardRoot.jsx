@@ -1,18 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {
-    ArrowLeftShort,
     ArrowReturnLeft,
     DoorClosed,
     GearWideConnected,
-    HouseFill,
+    HouseFill, List,
     PeopleFill, Postcard, PostcardHeart,
-    Search
 } from "react-bootstrap-icons";
 import {useDispatch, useSelector} from "react-redux";
 import {Outlet, useNavigate} from "react-router";
 import {Link} from "react-router-dom";
 import {logout} from "../../redux/auth/Action";
-import {Button, Modal} from "react-bootstrap";
 import UserModal from "../dashboard/UserModal";
 import "./dashboard.css"
 
@@ -21,12 +18,19 @@ const DashboardRoot = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const heightOfSidebar = window.innerHeight - 34;
-
-
-
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const [user, setUser] = useState({
+        name: "",
+        email: ""
+    });
+    const handleClose = () => {
+        setShow(false)
+    };
+    const handleShow = () => {
+        console.log("USER", auth.user);
+        setUser(auth.user)
+        setShow(true);
+    }
 
     const handleLogout = (e) => {
         e.preventDefault();
@@ -43,12 +47,21 @@ const DashboardRoot = () => {
     useEffect(() => {
         if (auth.user === null) {
             navigate("/signin");
+        } else {
+            setUser(auth.user);
         }
     }, [auth]);
     return (
         <div>
             <header className="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
-                <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="#">MY BLOGS</a>
+                <Link className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" to="/">MY BLOGS</Link>
+                <ul className="navbar-nav flex-row d-md-none">
+                    <li className="nav-item text-nowrap">
+                        <button className="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                            <List />
+                        </button>
+                    </li>
+                </ul>
             </header>
 
             <div className="container-fluid">
@@ -70,7 +83,7 @@ const DashboardRoot = () => {
                                         </Link>
                                     </li>
                                     {
-                                        auth.user?.role === "admin"
+                                        auth.user?.previewRole === "admin"
                                             ?
                                             <DashboardAdminLinks setActive={setActive}/>
                                             :
@@ -86,22 +99,22 @@ const DashboardRoot = () => {
                                         </Link>
                                     </li>
                                     <li className="nav-item">
-                                        <span style={{cursor: "pointer"}} onClick={handleShow} className="nav-link d-flex align-items-center gap-2" to="">
+                                        <span style={{cursor: "pointer"}} onClick={handleShow} className="nav-link d-flex align-items-center gap-2">
                                             <GearWideConnected />
                                             Settings
                                         </span>
                                     </li>
                                     <li className="nav-item">
-                                        <p style={{cursor: "pointer"}} onClick={(e) => handleLogout(e)} className="nav-link d-flex align-items-center gap-2" to="/">
+                                        <Link style={{cursor: "pointer"}} onClick={(e) => handleLogout(e)} className="nav-link d-flex align-items-center gap-2" to="/">
                                             <DoorClosed />
                                             Sign out
-                                        </p>
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <UserModal show={show} handleClose={handleClose} />
+                    <UserModal show={show} handleClose={handleClose} user={user} />
                     <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                         <Outlet />
                     </main>

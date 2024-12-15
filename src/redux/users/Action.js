@@ -21,6 +21,7 @@ export const updateUser = (users, user) => {
                }
                if (user.role) {
                    u.role = user.role;
+                   u.previewRole = user.role;
                }
                if (user.password && user.password === user.retypePassword) {
                    console.log("Changing password");

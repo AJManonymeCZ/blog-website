@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router";
 import {Button, Modal} from "react-bootstrap";
-import {updateUser} from "../../redux/users/Action";
 import {addBlog, updateBLog} from "../../redux/blogs/Action";
 
 const blogInitialState = {
@@ -26,18 +25,65 @@ const UpdateBlogsModal = ({show, handleClose, id}) => {
     const [message, setMessage] = useState("");
     const [updating, setUpdating] = useState(true);
 
-    const handleSaveChanges = () => {
-        if (updating) {
-            dispatch(updateBLog(blogs, blog));
+    const [imageError, setImageError] = useState(null);
+    const [titleError, setTitleError] = useState(null);
+    const [categoryError, setCategoryError] = useState(null);
+    const [shortTextError, setShortTextError] = useState(null);
+    const [longTextError, setLongTextError] = useState(null);
+    const validateBlog = (blog) => {
+        let valid = true;
+        if (blog.image.length === 0) {
+            setImageError("Image is required");
+            valid = false;
         } else {
-            blog.id = blogs.length + 1;
-            blog.authorId = auth.user.id;
-            blog.date = new Date().toISOString().split('T')[0];
-            dispatch(addBlog(blogs, blog));
+            setImageError(null);
         }
 
-        handleClose();
-        navigate("/dashboard/blogs");
+
+        if (blog.title.length === 0) {
+            setTitleError("Title is required");
+            valid = false;
+        } else {
+            setTitleError(null);
+        }
+
+        if (blog.category.length === 0) {
+            setCategoryError("Category is required");
+            valid = false;
+        } else {
+            setCategoryError(null);
+        }
+
+        if (blog.shortText.length === 0) {
+            setShortTextError("Short Text is required");
+            valid = false;
+        } else {
+            setShortTextError(null);
+        }
+
+        if (blog.longText.length === 0) {
+            setLongTextError("Long Text is required");
+            valid = false;
+        } else {
+            setLongTextError(null);
+        }
+        return valid;
+    };
+
+    const handleSaveChanges = () => {
+        if (validateBlog(blog)) {
+            if (updating) {
+                dispatch(updateBLog(blogs, blog));
+            } else {
+                blog.id = blogs.length + 1;
+                blog.authorId = auth.user.id;
+                blog.date = new Date().toISOString().split('T')[0];
+                dispatch(addBlog(blogs, blog));
+            }
+
+            handleClose();
+            navigate("/dashboard/blogs");
+        }
     };
 
     useEffect(() => {
@@ -69,21 +115,26 @@ const UpdateBlogsModal = ({show, handleClose, id}) => {
                                 <div className="col-md-12">
                                     <label htmlFor="name" className="form-label">Image Url</label>
                                     <input type="text" className="form-control" id="name" value={blog.image} onChange={e => setBlog({...blog, image: e.target.value})} />
+                                    {imageError && <div className="error">{imageError}</div>}
                                 </div>
                                 <div className="col-md12">
                                     <label htmlFor="title" className="form-label">Title</label>
                                     <input type="email" className="form-control" id="title" value={blog.title} onChange={e => setBlog({...blog, title: e.target.value})} />
+                                    {titleError && <div className="error">{titleError}</div>}
                                 </div>
                                 <select className="form-select" aria-label="Select Category" onChange={e => setBlog({...blog, category: e.target.value})}>
                                     {categories.map(r => <option selected={r === blog.category}  value={r}>{r}</option>)}
                                 </select>
+                                {categoryError && <div className="error">{categoryError}</div>}
                                 <div className="mb-3">
-                                    <label for="shortText" className="form-label">Short Text</label>
+                                    <label htmlFor="shortText" className="form-label">Short Text</label>
                                     <textarea className="form-control" id="shortText" value={blog.shortText} rows="2" onChange={e => setBlog({...blog, shortText: e.target.value})} ></textarea>
+                                    {shortTextError && <div className="error">{shortTextError}</div>}
                                 </div>
                                 <div className="mb-3">
-                                    <label for="longText" className="form-label">Long Text</label>
+                                    <label htmlFor="longText" className="form-label">Long Text</label>
                                     <textarea className="form-control" id="longText" value={blog.longText} rows="6" onChange={e => setBlog({...blog, longText: e.target.value})}></textarea>
+                                    {longTextError && <div className="error">{longTextError}</div>}
                                 </div>
                             </form>
                             :

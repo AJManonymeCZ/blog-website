@@ -5,7 +5,8 @@
     "email": "alice@example.com",
     "password": "password123",
     "gender": "Male",
-    "role": "admin"
+    "role": "admin",
+    "previewRole": "admin"
   },
   {
     "id": 2,
@@ -13,7 +14,8 @@
     "email": "bob@example.com",
     "password": "password123",
     "gender": "Female",
-    "role": "editor"
+    "role": "editor",
+    "previewRole": "editor"
   },
   {
     "id": 3,
@@ -21,7 +23,8 @@
     "email": "charlie@example.com",
     "password": "password123",
     "gender": "Female",
-    "role": "editor"
+    "role": "editor",
+    "previewRole": "editor"
   },
   {
     "id": 4,
@@ -29,7 +32,8 @@
     "email": "diana@example.com",
     "password": "password123",
     "gender": "Female",
-    "role": "editor"
+    "role": "editor",
+    "previewRole": "editor"
   },
   {
     "id": 5,
@@ -37,7 +41,8 @@
     "email": "edward@example.com",
     "password": "password123",
     "gender": "Other",
-    "role": "editor"
+    "role": "editor",
+    "previewRole": "editor"
   },
   {
     "id": 6,
@@ -45,7 +50,8 @@
     "email": "fiona@example.com",
     "password": "password123",
     "gender": "Other",
-    "role": "editor"
+    "role": "editor",
+    "previewRole": "editor"
   },
   {
     "id": 7,
@@ -53,7 +59,8 @@
     "email": "george@example.com",
     "password": "password123",
     "gender": "Male",
-    "role": "editor"
+    "role": "editor",
+    "previewRole": "editor"
   },
   {
     "id": 8,
@@ -61,7 +68,8 @@
     "email": "hannah@example.com",
     "password": "password123",
     "gender": "Female",
-    "role": "editor"
+    "role": "editor",
+    "previewRole": "editor"
   },
   {
     "id": 9,
@@ -69,7 +77,8 @@
     "email": "ian@example.com",
     "password": "password123",
     "gender": "Other",
-    "role": "editor"
+    "role": "editor",
+    "previewRole": "editor"
   },
   {
     "id": 10,
@@ -77,6 +86,7 @@
     "email": "jane@example.com",
     "password": "password123",
     "gender": "Female",
-    "role": "editor"
+    "role": "editor",
+    "previewRole": "editor"
   }
 ]

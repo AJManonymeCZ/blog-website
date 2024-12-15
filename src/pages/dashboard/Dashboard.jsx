@@ -27,7 +27,7 @@ const Dashboard = () => {
             </div>
 
             <div className="row g-4">
-                {auth.user && auth.user.role === "admin"
+                {auth.user && auth.user.previewRole === "admin"
                     ?
                     <div className="col-md-6">
                         <div className="card text-center">
@@ -44,8 +44,8 @@ const Dashboard = () => {
                 <div className="col-md-6">
                     <div className="card text-center">
                         <div className="card-body">
-                            <h5 className="card-title">{auth.user.role === "admin" ? "Blogs" : "My Blogs"}</h5>
-                            <p className="card-text fs-4">{auth.user && auth.user.role === "admin" ? blogs.length : getEditorsBlogsCount()}</p>
+                            <h5 className="card-title">{auth.user.previewRole === "admin" ? "Blogs" : "My Blogs"}</h5>
+                            <p className="card-text fs-4">{auth.user && auth.user.previewRole === "admin" ? blogs.length : getEditorsBlogsCount()}</p>
                             <Link to={'/dashboard/blogs'} className="btn btn-success">View Details</Link>
                         </div>
                     </div>

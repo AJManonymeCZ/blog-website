@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {deleteUser} from "../../redux/users/Action";
 import {useNavigate} from "react-router";
-import {Button, Modal} from "react-bootstrap";
 import UsersUpdateModal from "./UsersUpdateModal";
 
 const Users = () => {
@@ -25,7 +24,7 @@ const Users = () => {
         handleShow();
     };
 
-    return ( auth.user.role === "admin" ?
+    return ( auth.user.previewRole === "admin" ?
         <>
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">Users</h1>
